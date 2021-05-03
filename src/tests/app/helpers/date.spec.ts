@@ -14,6 +14,7 @@ describe('date Helper', () => {
       now.getUTCMilliseconds(),
     );
 
-    expect(utc().getTime()).toBe(utcDate.getTime());
+    expect(utc().getTime()).toBeLessThanOrEqual(utcDate.getTime() + 100);
+    expect(utc().getTime()).toBeGreaterThanOrEqual(utcDate.getTime() - 100);
   });
 });
