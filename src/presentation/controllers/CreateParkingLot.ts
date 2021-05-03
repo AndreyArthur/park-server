@@ -1,5 +1,12 @@
-export class CreateParkingLotController {
-  public async handle(httpRequest: any): Promise<any> {
+import { CreateParkingLotCredentials } from '@/core/useCases';
+import {
+  Controller, HttpRequest, HttpResponse,
+} from '@/presentation/protocols';
+
+export class CreateParkingLotController implements Controller {
+  public async handle(
+    httpRequest: HttpRequest<CreateParkingLotCredentials>,
+  ): Promise<HttpResponse> {
     return Promise.resolve({
       status: 201,
       body: {
