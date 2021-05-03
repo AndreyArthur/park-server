@@ -13,6 +13,7 @@
     "@commitlint/config-conventional": "^12.1.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^26.0.23",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "eslint": "^7.25.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
@@ -25,6 +26,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3"
+    "bcryptjs": "^2.4.3",
+    "uuid": "^8.3.2"
   }
 }

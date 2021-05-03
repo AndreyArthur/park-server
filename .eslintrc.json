@@ -10,6 +10,7 @@
       80
     ],
     "@typescript-eslint/no-throw-literal": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "@typescript-eslint/explicit-function-return-type": "error"
   }
 }

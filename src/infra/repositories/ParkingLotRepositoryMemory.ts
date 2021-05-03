@@ -1,19 +1,19 @@
-import crypto from 'crypto';
-
+import { IdGenerator } from '@/infra/adapters/IdGenerator';
 import { ParkingLot } from '@/core/entities';
 import { CreateParkingLotCredentials } from '@/core/useCases';
 import { CreateParkingLotRepository } from '@/application/repositories';
+import { utc } from '@/infra/helpers/date';
 
 export class ParkingLotRepositoryMemory implements CreateParkingLotRepository {
   private parkingLots: ParkingLot[] = [];
 
   public create({ name, password }: CreateParkingLotCredentials): ParkingLot {
     return {
-      id: crypto.randomBytes(16).toString('hex'),
+      id: IdGenerator.uuid(),
       name,
       password,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: utc(),
+      updatedAt: utc(),
     };
   }
 
