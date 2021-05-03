@@ -1,5 +1,5 @@
 import { Encrypter } from '@/infra/adapters';
-import { randomString } from '@/tests/helpers';
+import { randomString } from '@/tests/helpers/generators';
 
 describe('Encrypter Adapter', () => {
   // To avoid jest coverage bugs with static methods
