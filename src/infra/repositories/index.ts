@@ -1,1 +1,1 @@
-export * from '@/infra/repositories/ParkingLotRepositoryMemory';
+export * from '@/infra/repositories/ParkingLotMemory';
