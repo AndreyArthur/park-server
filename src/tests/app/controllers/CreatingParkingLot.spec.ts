@@ -13,7 +13,7 @@ describe('CreateParkingLot Controller', () => {
     });
 
     expect(httpResponse.status).toBe(201);
-    expect(httpResponse.body.password).toBe(undefined);
+    expect((httpResponse.body as any).password).toBe(undefined);
     expect(httpResponse.body.id).toHaveLength(36);
     expect(httpResponse.body.name).toHaveLength(10);
     expect(typeof httpResponse.body.createdAt).toBe('object');
