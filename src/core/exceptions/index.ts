@@ -1,1 +1,1 @@
-export * from '@/core/exceptions/AlreadyExistsError';
+export * from '@/core/exceptions/NameInUseError';

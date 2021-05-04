@@ -3,7 +3,7 @@ import { Encrypter } from '@/infra/adapters';
 import { CreateParkingLotUseCase } from '@/application/useCases';
 import { ParkingLotRepositoryMemory } from '@/infra/repositories';
 import { CreateParkingLot } from '@/core/useCases';
-import { AlreadyExistsError } from '@/core/exceptions';
+import { NameInUseError } from '@/core/exceptions';
 
 function makeSut(): CreateParkingLot {
   const parkingLotRepository = new ParkingLotRepositoryMemory();
@@ -45,7 +45,7 @@ describe('CreateParkingLot UseCase', () => {
           password: randomString(10),
         });
       } catch (err) {
-        expect(err).toEqual(new AlreadyExistsError('Parking Lot'));
+        expect(err).toEqual(new NameInUseError());
       }
     },
   );

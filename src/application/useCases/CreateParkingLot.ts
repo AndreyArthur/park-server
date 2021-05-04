@@ -1,5 +1,5 @@
 import { ParkingLot } from '@/core/entities';
-import { AlreadyExistsError } from '@/core/exceptions';
+import { NameInUseError } from '@/core/exceptions';
 import { CreateParkingLot, CreateParkingLotCredentials } from '@/core/useCases';
 import {
   CreateParkingLotRepository,
@@ -20,7 +20,7 @@ export class CreateParkingLotUseCase implements CreateParkingLot {
       name,
     );
 
-    if (parkingLotExists) throw new AlreadyExistsError('Parking Lot');
+    if (parkingLotExists) throw new NameInUseError();
 
     const parkingLot = this.createParkingLotRepository.create({
       name,
