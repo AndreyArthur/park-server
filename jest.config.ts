@@ -9,6 +9,7 @@ export default {
     '!<rootDir>/src/core/useCases/*.ts',
     '!<rootDir>/src/core/entities/*.ts',
     '!<rootDir>/src/application/repositories/*.ts',
+    '!<rootDir>/src/**/protocols/*.ts',
   ],
   coverageProvider: 'v8',
   testEnvironment: 'node',
