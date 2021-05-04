@@ -1,9 +1,18 @@
+import { CreateParkingLotUseCase } from '@/application/useCases';
+import { ParkingLotRepositoryMemory } from '@/infra/repositories';
 import { CreateParkingLotController } from '@/presentation/controllers';
 import { randomString } from '@/tests/helpers/generators';
 
+function makeSut(): CreateParkingLotController {
+  const parkingLotRepository = new ParkingLotRepositoryMemory();
+  const createParkingLot = new CreateParkingLotUseCase(parkingLotRepository);
+
+  return new CreateParkingLotController(createParkingLot);
+}
+
 describe('CreateParkingLot Controller', () => {
   it('should return status 201 and a ParkingLot in body', async () => {
-    const sut = new CreateParkingLotController();
+    const sut = makeSut();
 
     const httpResponse = await sut.handle({
       body: {
