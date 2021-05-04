@@ -1,4 +1,7 @@
+import { CreateParkingLotUseCase } from '@/application/useCases';
+import { ParkingLot } from '@/core/entities';
 import { CreateParkingLotCredentials } from '@/core/useCases';
+import { ParkingLotRepositoryMemory } from '@/infra/repositories';
 import {
   Controller, HttpRequest, HttpResponse,
 } from '@/presentation/protocols';
@@ -6,15 +9,17 @@ import {
 export class CreateParkingLotController implements Controller {
   public async handle(
     httpRequest: HttpRequest<CreateParkingLotCredentials>,
-  ): Promise<HttpResponse> {
-    return Promise.resolve({
+  ): Promise<HttpResponse<Omit<ParkingLot, 'password'>>> {
+    const parkingLotRepository = new ParkingLotRepositoryMemory();
+    const createParkingLot = new CreateParkingLotUseCase(parkingLotRepository);
+    const {
+      password,
+      ...parkingLot
+    } = await createParkingLot.execute(httpRequest.body);
+
+    return {
       status: 201,
-      body: {
-        id: '88ca7ea5-4980-4240-b103-69cd5d5a6435',
-        name: httpRequest.body.name,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
+      body: parkingLot,
+    };
   }
 }
