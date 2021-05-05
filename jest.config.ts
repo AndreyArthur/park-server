@@ -11,6 +11,7 @@ export default {
     '!<rootDir>/src/application/repositories/*.ts',
     '!<rootDir>/src/**/protocols/*.ts',
     '!<rootDir>/src/**/exceptions/*.ts',
+    '!<rootDir>/src/main/http/server.ts',
   ],
   coverageProvider: 'v8',
   testEnvironment: 'node',

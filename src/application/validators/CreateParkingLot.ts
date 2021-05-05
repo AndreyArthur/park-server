@@ -1,4 +1,4 @@
-import { MissingParamError, InvalidParamError } from '@/core/exceptions';
+import { MissingParamError, InvalidParamError } from '@/application/exceptions';
 import { CreateParkingLotCredentials } from '@/core/useCases';
 
 export class CreateParkingLotValidator {

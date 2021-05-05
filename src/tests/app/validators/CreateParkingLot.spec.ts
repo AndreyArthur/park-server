@@ -1,7 +1,7 @@
 import {
   CreateParkingLotValidator,
 } from '@/application/validators';
-import { InvalidParamError, MissingParamError } from '@/core/exceptions';
+import { InvalidParamError, MissingParamError } from '@/application/exceptions';
 import { randomString } from '@/tests/helpers/generators';
 
 describe('CreateParkingLot Validator', () => {

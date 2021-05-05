@@ -3,7 +3,7 @@ import { Encrypter } from '@/infra/adapters';
 import { CreateParkingLotUseCase } from '@/application/useCases';
 import { ParkingLotRepositoryMemory } from '@/infra/repositories';
 import { CreateParkingLot } from '@/core/useCases';
-import { NameInUseError } from '@/core/exceptions';
+import { NameInUseError } from '@/application/exceptions';
 
 function makeSut(): CreateParkingLot {
   const parkingLotRepository = new ParkingLotRepositoryMemory();

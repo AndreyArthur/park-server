@@ -1,5 +1,5 @@
 import { ParkingLot } from '@/core/entities';
-import { NameInUseError } from '@/core/exceptions';
+import { NameInUseError } from '@/application/exceptions';
 import { CreateParkingLot, CreateParkingLotCredentials } from '@/core/useCases';
 import {
   CreateParkingLotRepository,
