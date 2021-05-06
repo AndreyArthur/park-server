@@ -15,7 +15,7 @@ export class CreateParkingLotController implements Controller {
     httpRequest: HttpRequest<CreateParkingLotCredentials>,
   ): Promise<HttpResponse<Omit<ParkingLot, 'password'>>> {
     const {
-      password,
+      password: _password,
       ...parkingLot
     } = await this.createParkingLot.execute(httpRequest.body);
 

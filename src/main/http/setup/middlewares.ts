@@ -1,6 +1,8 @@
 import { Express, json } from 'express';
-import { contentTypeMiddleware } from '../middlewares/contentType';
-import { corsMiddleware } from '../middlewares/cors';
+import {
+  contentTypeMiddleware,
+  corsMiddleware,
+} from '@/main/http/middlewares';
 
 export function middlewares(app: Express): void {
   app.use(json());
