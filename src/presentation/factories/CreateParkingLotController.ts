@@ -1,10 +1,10 @@
 import { CreateParkingLotUseCase } from '@/application/useCases';
-import { ParkingLotRepositoryMemory } from '@/infra/repositories';
+import { ParkingLotRepositorySQL } from '@/infra/repositories';
 import { CreateParkingLotController } from '@/presentation/controllers';
 
 export class CreateParkingLotControllerFactory {
   public static create(): CreateParkingLotController {
-    const parkingLotsRepository = new ParkingLotRepositoryMemory();
+    const parkingLotsRepository = new ParkingLotRepositorySQL();
     const createParkingLotUseCase = new CreateParkingLotUseCase(
       parkingLotsRepository,
     );

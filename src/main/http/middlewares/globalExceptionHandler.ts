@@ -1,4 +1,8 @@
-import { InvalidParamError, MissingParamError } from '@/application/exceptions';
+import {
+  InvalidParamError,
+  MissingParamError,
+  NameInUseError,
+} from '@/application/exceptions';
 import { NextFunction, Request, Response } from 'express';
 
 export function globalExceptionHandlerMiddleware(
@@ -10,6 +14,15 @@ export function globalExceptionHandlerMiddleware(
       message: err.message,
     });
   }
+
+  if (err instanceof NameInUseError) {
+    return res.status(401).send({
+      status: 'Unauthorized',
+      message: err.message,
+    });
+  }
+
+  process.stdout.write(`${JSON.stringify({ ...err }, null, 2)}\n\n`);
 
   return res.status(500).send({
     status: 'Server Error',
