@@ -4,9 +4,9 @@ import { CreateParkingLotController } from '@/presentation/controllers';
 
 export class CreateParkingLotControllerFactory {
   public static create(): CreateParkingLotController {
-    const parkingLotsRepository = new ParkingLotRepositorySQL();
+    const parkingLotRepository = new ParkingLotRepositorySQL();
     const createParkingLotUseCase = new CreateParkingLotUseCase(
-      parkingLotsRepository,
+      parkingLotRepository,
     );
 
     return new CreateParkingLotController(createParkingLotUseCase);
