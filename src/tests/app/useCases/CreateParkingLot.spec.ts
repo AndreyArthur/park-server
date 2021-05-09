@@ -1,5 +1,5 @@
 import { randomString } from '@/tests/helpers/generators';
-import { Encrypter } from '@/infra/adapters';
+import { Encrypter } from '@/application/adapters';
 import { CreateParkingLotUseCase } from '@/application/useCases';
 import { ParkingLotRepositoryMemory } from '@/infra/repositories';
 import { CreateParkingLot } from '@/core/useCases';

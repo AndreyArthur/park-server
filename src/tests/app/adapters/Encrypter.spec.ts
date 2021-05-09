@@ -1,4 +1,4 @@
-import { Encrypter } from '@/infra/adapters';
+import { Encrypter } from '@/application/adapters';
 import { randomString } from '@/tests/helpers/generators';
 
 describe('Encrypter Adapter', () => {

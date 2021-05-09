@@ -4,7 +4,7 @@ import { CreateParkingLot, CreateParkingLotCredentials } from '@/core/useCases';
 import {
   CreateParkingLotRepository,
 } from '@/application/repositories';
-import { Encrypter } from '@/infra/adapters';
+import { Encrypter } from '@/application/adapters';
 import { CreateParkingLotValidator } from '@/application/validators';
 
 export class CreateParkingLotUseCase implements CreateParkingLot {
