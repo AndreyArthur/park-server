@@ -50,6 +50,13 @@ describe('ParkinkLotSQL Repository', () => {
     expect(typeof parkingLot.updatedAt).toBe('object');
   });
 
+  it('should return undefined because ParkingLot was not found', async () => {
+    const sut = makeSut();
+    const parkingLot = await sut.findByName(randomString(8));
+
+    expect(parkingLot).toBe(undefined);
+  });
+
   it('should save 3 ParkingLots', async () => {
     const sut = makeSut();
 

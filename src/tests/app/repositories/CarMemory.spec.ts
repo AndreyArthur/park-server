@@ -31,6 +31,13 @@ describe('CarMemory Repository', () => {
     expect(typeof car.updatedAt).toBe('object');
   });
 
+  it('should return undefined because Car was not found', async () => {
+    const sut = makeSut();
+    const car = await sut.findByPlate(randomCarPlate());
+
+    expect(car).toBe(undefined);
+  });
+
   it('should save a 3 Cars', async () => {
     const sut = makeSut();
 
