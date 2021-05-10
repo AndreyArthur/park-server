@@ -30,6 +30,9 @@ describe('globalExceptionHandler Middleware', () => {
   });
 
   it('should respond with 500 status', async () => {
+    jest.spyOn(process.stdout, 'write')
+      .mockImplementationOnce((str: string | Uint8Array): boolean => !!str);
+
     app.get('/test_global_exception_handler_500', () => {
       throw new Error('message');
     });
