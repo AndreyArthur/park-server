@@ -1,10 +1,18 @@
 import { randomCarPlate } from '@/tests/helpers/generators';
 import { CreateCarController } from '@/presentation/controllers';
+import { CreateCarUseCase } from '@/application/useCases';
+import { CarRepositoryMemory } from '@/infra/repositories';
+
+function makeSut(): CreateCarController {
+  const carRepositoryMemory = new CarRepositoryMemory();
+  const createCarUseCase = new CreateCarUseCase(carRepositoryMemory);
+
+  return new CreateCarController(createCarUseCase);
+}
 
 describe('CreateCar Controller', () => {
   it('should return status 201 and a Car in body', async () => {
-    const sut = new CreateCarController();
-
+    const sut = makeSut();
     const { status, body } = await sut.handle({
       body: {
         plate: randomCarPlate(),
