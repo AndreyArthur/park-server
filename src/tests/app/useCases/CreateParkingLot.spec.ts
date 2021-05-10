@@ -21,8 +21,11 @@ describe('CreateParkingLot UseCase', () => {
       password: parkingLotPassword,
     });
 
-    expect(parkingLot.id).toBeTruthy();
-    expect(parkingLot.name).toBeTruthy();
+    expect(parkingLot.id).toHaveLength(36);
+    expect(parkingLot.name).toHaveLength(12);
+    expect(typeof parkingLot.createdAt).toBe('object');
+    expect(typeof parkingLot.updatedAt).toBe('object');
+    expect(parkingLot.password).toHaveLength(60);
     expect(await Encrypter.compare(parkingLotPassword, parkingLot.password))
       .toBe(true);
   });
