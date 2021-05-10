@@ -1,12 +1,16 @@
-import { CreateParkingLotRepository } from '@/application/repositories';
+import {
+  CreateParkingLotRepository, CreateSessionRepository,
+} from '@/application/repositories';
 import { ParkingLot } from '@/core/entities';
 import { CreateParkingLotCredentials } from '@/core/useCases';
-import { ParkingLotAdapter, ParkingLotData } from '@/infra/adapters';
+import {
+  ParkingLotAdapter, ParkingLotData, IdGenerator,
+} from '@/infra/adapters';
 import { utc } from '@/infra/helpers/date';
-import { IdGenerator } from '../adapters';
-import { Database } from '../database';
+import { Database } from '@/infra/database';
 
-export class ParkingLotRepositorySQL implements CreateParkingLotRepository {
+export class ParkingLotRepositorySQL implements CreateParkingLotRepository,
+CreateSessionRepository {
   public create({ name, password }: CreateParkingLotCredentials): ParkingLot {
     return {
       id: IdGenerator.uuid(),

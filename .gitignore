@@ -3,3 +3,4 @@ coverage
 .husky
 *.md
 !README.md
+.env

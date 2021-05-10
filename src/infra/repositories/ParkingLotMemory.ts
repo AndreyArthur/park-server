@@ -1,10 +1,13 @@
 import { IdGenerator } from '@/infra/adapters/IdGenerator';
 import { ParkingLot } from '@/core/entities';
 import { CreateParkingLotCredentials } from '@/core/useCases';
-import { CreateParkingLotRepository } from '@/application/repositories';
+import {
+  CreateParkingLotRepository, CreateSessionRepository,
+} from '@/application/repositories';
 import { utc } from '@/infra/helpers/date';
 
-export class ParkingLotRepositoryMemory implements CreateParkingLotRepository {
+export class ParkingLotRepositoryMemory implements CreateParkingLotRepository,
+CreateSessionRepository {
   private parkingLots: ParkingLot[] = [];
 
   public create({ name, password }: CreateParkingLotCredentials): ParkingLot {

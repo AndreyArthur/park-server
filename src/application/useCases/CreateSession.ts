@@ -2,23 +2,41 @@ import {
   CreateSession,
   CreateSessionCredentials,
   CreateSessionReturnType,
-} from '@/core/useCases/CreateSession';
-import { Encrypter } from '../adapters';
+} from '@/core/useCases';
+import { Encrypter, Token } from '@/application/adapters';
+import { CreateSessionRepository } from '@/application/repositories';
+import { AuthenticationError } from '@/application/exceptions';
+import { CreateSessionValidator } from '../validators';
 
 export class CreateSessionUseCase implements CreateSession {
+  private createSessionRepository: CreateSessionRepository;
+
+  constructor(createSessionRepository: CreateSessionRepository) {
+    this.createSessionRepository = createSessionRepository;
+  }
+
   public async execute(
     { name, password }: CreateSessionCredentials,
   ): Promise<CreateSessionReturnType> {
+    CreateSessionValidator.validate({ name, password });
+
+    const parkingLot = await this.createSessionRepository.findByName(name);
+
+    if (!parkingLot) {
+      throw new AuthenticationError('invalid name/password combination');
+    }
+
+    const passwordMatched = await Encrypter.compare(
+      password, parkingLot.password,
+    );
+
+    if (!passwordMatched) {
+      throw new AuthenticationError('invalid name/password combination');
+    }
+
     return {
-      // eslint-disable-next-line
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-      parkingLot: {
-        id: 'f158c5dc-9f75-4b94-9d17-0c6d0da54b09',
-        name,
-        password: await Encrypter.encrypt(password),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      token: Token.sign({ parkingLotId: parkingLot.id }),
+      parkingLot,
     };
   }
 }
