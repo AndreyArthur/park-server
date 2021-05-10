@@ -1,6 +1,5 @@
-import { CreateCarUseCase } from '@/application/useCases';
 import { Car } from '@/core/entities';
-import { CarRepositoryMemory } from '@/infra/repositories';
+import { CreateCar } from '@/core/useCases';
 import {
   Controller,
   HttpResponse,
@@ -8,11 +7,16 @@ import {
 } from '@/presentation/protocols';
 
 export class CreateCarController implements Controller {
+  private createCar: CreateCar;
+
+  constructor(createCar: CreateCar) {
+    this.createCar = createCar;
+  }
+
   public async handle(
     httpRequest: HttpRequest<{ plate: string }>,
   ): Promise<HttpResponse<Car>> {
-    const car = await new CreateCarUseCase(new CarRepositoryMemory())
-      .execute(httpRequest.body.plate);
+    const car = await this.createCar.execute(httpRequest.body.plate);
 
     return {
       status: 201,
