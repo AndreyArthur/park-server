@@ -1,3 +1,4 @@
+import { AuthenticationError } from '@/application/exceptions';
 import {
   CreateSessionUseCase,
   CreateParkingLotUseCase,
@@ -12,7 +13,7 @@ type SutTypes = {
 
 function makeSut(): SutTypes {
   const parkingLotRepository = new ParkingLotRepositoryMemory();
-  const sut = new CreateSessionUseCase();
+  const sut = new CreateSessionUseCase(parkingLotRepository);
 
   return {
     sut,
@@ -42,5 +43,42 @@ describe('CreateSession UseCase', () => {
     expect(parkingLot.name).toHaveLength(10);
     expect(typeof parkingLot.createdAt).toBe('object');
     expect(typeof parkingLot.updatedAt).toBe('object');
+  });
+
+  it('should throw an error bacause ParkingLot does not exist', async () => {
+    const { sut } = makeSut();
+
+    try {
+      await sut.execute({
+        name: randomString(10),
+        password: randomString(10),
+      });
+    } catch (err) {
+      expect(err).toEqual(
+        new AuthenticationError('invalid name/password combination'),
+      );
+    }
+  });
+
+  it('should throw an error because ParkingLot password is wrong', async () => {
+    const { sut, parkingLotRepository } = makeSut();
+    const createParkingLot = new CreateParkingLotUseCase(
+      parkingLotRepository,
+    );
+    const { name } = await createParkingLot.execute({
+      name: randomString(10),
+      password: randomString(10),
+    });
+
+    try {
+      await sut.execute({
+        name,
+        password: randomString(10),
+      });
+    } catch (err) {
+      expect(err).toEqual(
+        new AuthenticationError('invalid name/password combination'),
+      );
+    }
   });
 });
