@@ -1,4 +1,6 @@
+import { CreateCarUseCase } from '@/application/useCases';
 import { Car } from '@/core/entities';
+import { CarRepositoryMemory } from '@/infra/repositories';
 import {
   Controller,
   HttpResponse,
@@ -9,14 +11,12 @@ export class CreateCarController implements Controller {
   public async handle(
     httpRequest: HttpRequest<{ plate: string }>,
   ): Promise<HttpResponse<Car>> {
+    const car = await new CreateCarUseCase(new CarRepositoryMemory())
+      .execute(httpRequest.body.plate);
+
     return {
       status: 201,
-      body: {
-        id: '9b05a590-318e-44ce-9b2c-df9b231de406',
-        plate: httpRequest.body.plate,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      body: car,
     };
   }
 }
