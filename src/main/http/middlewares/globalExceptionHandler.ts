@@ -3,6 +3,7 @@ import {
   MissingParamError,
   NameInUseError,
   CarAlreadyRegisteredError,
+  AuthenticationError,
 } from '@/application/exceptions';
 import { NextFunction, Request, Response } from 'express';
 
@@ -17,7 +18,8 @@ export function globalExceptionHandlerMiddleware(
   }
 
   if (err instanceof NameInUseError
-      || err instanceof CarAlreadyRegisteredError) {
+      || err instanceof CarAlreadyRegisteredError
+      || err instanceof AuthenticationError) {
     return res.status(401).send({
       status: 'Unauthorized',
       message: err.message,
